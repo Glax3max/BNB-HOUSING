@@ -4,7 +4,7 @@ import * as listingService from "./listing.service"
 export const create = async (req:Request,res:Response) => {
     const listing = await listingService.createListing({
         ...req.body,
-        hostId:req.user.hostId
+        hostId:req.user!.userId,
     });
 
     res.json(listing);
@@ -16,9 +16,10 @@ export const getAll = async (req:Request,res:Response) => {
 }
 
 export const update = async (req:Request,res:Response) => {
+    const listingId = req.params.id as string;
     const updated = await listingService.updateListing(
-        req.params.id,
-        req.user.userId,
+        listingId,
+        req.user!.userId,
         req.body
     );
 
@@ -26,11 +27,15 @@ export const update = async (req:Request,res:Response) => {
 }
 
 export const remove = async (req:Request,res:Response) => {
+    const listingId = req.params.id as string;
+
     await listingService.deleteListing(
-        req.params.id,
-        req.user.userId
+        listingId,
+        req.user!.userId,
     );
 
     res.json({success:true});
 };
+
+
 

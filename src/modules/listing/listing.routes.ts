@@ -1,11 +1,15 @@
 import {Router} from "express"
 import * as controller from "./listing.controller";
+import { authMiddleware } from "../../shared/middleware/auth.middleware";
+import { requireHost } from "../../shared/middleware/role.middleware";
 
 const router = Router();
 
 router.get("/",controller.getAll);
-router.post("/",controller.create);
-router.post("/:id",controller.update);
-router.delete("/id",controller.remove);
+
+// Protected routes
+router.post("/",authMiddleware,requireHost,controller.create);
+router.post("/:id",authMiddleware,requireHost,controller.update);
+router.delete("/id",authMiddleware,requireHost,controller.remove);
 
 export default router;

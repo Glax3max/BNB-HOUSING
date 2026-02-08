@@ -12,4 +12,3 @@ export interface updateListingInput {
     price?:number;
     location?:string;
 }
-

@@ -29,6 +29,7 @@ export const updateListing = async (listingId:string,hostId:string,data:updateLi
     return listingRepo.updateListings(listingId,data)
 }
 
+
 export const deleteListing = async (listingId:string,hostId:string) => {
     const listing = await listingRepo.findListById(listingId);
 
